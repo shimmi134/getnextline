@@ -31,6 +31,6 @@ char	*get_next_line(int fd)
 	{
 		return (0);
 	}
-	temp = ft_splitline(&arr, fd);
-	return (arr);
+	temp = ft_splitline(arr, fd);
+	return (temp);
 }

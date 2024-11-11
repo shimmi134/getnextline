@@ -85,30 +85,36 @@ char	*ft_cleanline(char *str)
 		temp[i] = str[i];
 		i++;
 	}
+	temp[i] = '\0';
 	return (temp);
 }
 
-char	*ft_splitline(char **arr, int fd)
+char	*ft_splitline(char *arr, int fd)
 {
 	int		bytes_read;
 	char	*temp;
 	char	*stash;
 
 	bytes_read = 1;
-	temp = NULL;
-	stash = NULL;
-	while ((bytes_read > 0) && (!ft_strchr(*arr, '\n')))
+	arr = (char *)malloc(BUFFER_SIZE + 1);
+	if (!arr)
+		return (NULL);
+	while ((bytes_read > 0) && (!ft_strchr(arr, '\n')))
 	{
-		bytes_read = read(fd, *arr, BUFFER_SIZE);
+		bytes_read = read(fd, arr, BUFFER_SIZE);
 		if (bytes_read > 0)
 		{
-			stash = ft_strjoin(stash,*arr);
+			stash = ft_strjoin(stash,arr);
 			if (!stash)
 				return (NULL);
-			if (ft_strchr(*arr, '\n'))
+			if (ft_strchr(arr, '\n'))
 			{
 				temp = ft_cleanline(stash);
-				*arr = ft_strchr(stash, '\n');
+				arr = ft_strchr(stash, '\n');
+			}
+			else {
+				free(arr);
+				arr = malloc(BUFFER_SIZE + 1);
 			}
 		}
 	}
