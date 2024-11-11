@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h" 
+#include <stdio.h>
 /*
  * 1. First check if my static array is empty or not
  * 1.1 If its empty, read n bytes and to the static array
@@ -26,9 +27,10 @@ char	*get_next_line(int fd)
 	static char	*arr = NULL;
 	char		*temp;
 
-	if (!arr)
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE < 1 || BUFFER_SIZE > 4096)
 	{
-		temp = ft_splitline(arr, fd);
+		return (0);
 	}
+	temp = ft_splitline(&arr, fd);
 	return (arr);
 }

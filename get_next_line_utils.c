@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int ft_strlen(const char *str, int flag)
+int	ft_strlen(const char *str, int flag)
 {
 	int	i;
 
@@ -28,13 +28,13 @@ int ft_strlen(const char *str, int flag)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	int	i;
-	int	j;
-	int	len;
+	int		i;
+	int		j;
+	int		len;
 	char	*arr;
 
 	len = ft_strlen(s1, 0) + ft_strlen(s2, 0);
-	arr = (char *) malloc ((char)len+1);
+	arr = (char *) malloc (len + 1);
 	if (!arr)
 		return (NULL);
 	i = 0;
@@ -46,16 +46,16 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	while (s2[j])
 	{
-		arr[i+j] = s2[j];
+		arr[i + j] = s2[j];
 		j++;
 	}
-	arr[i+j] = '\0';
+	arr[i + j] = '\0';
 	return (arr);
 }
 
 char	*ft_strchr(const char *str, char c)
 {
-	int	i;
+	int		i;
 	char	*s;
 
 	s = (char *)str;
@@ -71,13 +71,13 @@ char	*ft_strchr(const char *str, char c)
 
 char	*ft_cleanline(char *str)
 {
-	char *temp;
-	int i;
-	int len;
+	char	*temp;
+	int		i;
+	int		len;
 
 	i = 0;
-	len = ft_strlen(str,1)+1;
-	temp = (char *)malloc((char) (len+1));
+	len = ft_strlen(str, 1) + 1;
+	temp = (char *) malloc ((len + 1));
 	if (!temp)
 		return (NULL);
 	while (len > i)
@@ -88,27 +88,27 @@ char	*ft_cleanline(char *str)
 	return (temp);
 }
 
-char	*ft_splitline(char *arr, int fd)
+char	*ft_splitline(char **arr, int fd)
 {
-	int bytes_read;
-	char *temp;
-	char *stash;
+	int		bytes_read;
+	char	*temp;
+	char	*stash;
 
 	bytes_read = 1;
 	temp = NULL;
 	stash = NULL;
-	while ((bytes_read > 0 ) && (!ft_strchr(arr, '\n')))
+	while ((bytes_read > 0) && (!ft_strchr(*arr, '\n')))
 	{
-		bytes_read = read(fd, arr, BUFFER_SIZE);
+		bytes_read = read(fd, *arr, BUFFER_SIZE);
 		if (bytes_read > 0)
 		{
-			stash = ft_strjoin(stash,arr);
+			stash = ft_strjoin(stash,*arr);
 			if (!stash)
 				return (NULL);
-			if (ft_strchr(arr,'\n'))
+			if (ft_strchr(*arr, '\n'))
 			{
 				temp = ft_cleanline(stash);
-				arr = ft_strchr(stash,'\n');
+				*arr = ft_strchr(stash, '\n');
 			}
 		}
 	}
