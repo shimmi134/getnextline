@@ -6,7 +6,7 @@
 /*   By: shimi-be <shimi-be@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:12:18 by shimi-be          #+#    #+#             */
-/*   Updated: 2024/11/10 20:40:42 by shimi-be         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:19:20 by shimi-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ char	*get_next_line(int fd)
 	static char	*arr = NULL;
 	char		*temp;
 
-	if (fd < 0 || fd > 1024 || BUFFER_SIZE < 1 || BUFFER_SIZE > 4096)
+	if (fd < 0 || BUFFER_SIZE < 1)
 	{
 		return (0);
 	}
 	temp = ft_splitline(arr, fd);
+	//SPlit every function on a separate function
 	return (temp);
 }

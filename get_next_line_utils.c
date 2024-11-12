@@ -6,7 +6,7 @@
 /*   By: shimi-be <shimi-be@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:28:16 by shimi-be          #+#    #+#             */
-/*   Updated: 2024/11/10 20:45:21 by shimi-be         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:00:59 by shimi-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,34 +95,25 @@ char	*ft_splitline(char *arr, int fd)
 	int		bytes_read;
 	char	*temp;
 	char	*stash;
+	char	buffer[BUFFER_SIZE];
 
 	bytes_read = 1;
-	arr = (char *)malloc(BUFFER_SIZE + 1);
-	stash = (char *)malloc(BUFFER_SIZE + 1);
 	if (!arr)
 		return (NULL);
 	while ((bytes_read > 0) && (!ft_strchr(arr, '\n')))
 	{
-		bytes_read = read(fd, arr, BUFFER_SIZE);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read > 0)
 		{
-			stash = ft_strjoin(stash,arr);
+			stash = ft_strjoin(stash,buffer);
 			if (!stash)
 				return (NULL);
 			if (ft_strchr(arr, '\n'))
 			{
-		//		printf("Stashend:%s\n",stash);
 				temp = ft_cleanline(stash);
-		//		printf("Temp1: %s\n",temp); 
 				arr = ft_strchr(stash, '\n');
-		//		printf("Arr1: %s\n",arr); 
-			}
-			else {
-				free(arr);
-				arr = malloc(BUFFER_SIZE + 1);
 			}
 		}
 	}
-	//printf("TempFinal: %s\n",temp);
 	return (temp);
 }

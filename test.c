@@ -7,5 +7,11 @@ int	main(void)
 	int fd = open("hi.txt",O_RDONLY);
 	char *arr = get_next_line(fd);
 	printf("%s",arr);
+	arr = get_next_line(fd);
+	printf("%s",arr);
+	arr = get_next_line(fd);
+	printf("%s",arr);
+	arr = get_next_line(fd);
+	printf("%s",arr);
 	free (arr);
 }
