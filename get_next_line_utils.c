@@ -90,17 +90,16 @@ char	*ft_cleanline(char *str)
 	return (temp);
 }
 
-char	*ft_splitline(char *arr, int fd)
+char	*ft_getline(int fd)
 {
 	int		bytes_read;
-	char	*temp;
 	char	*stash;
 	char	buffer[BUFFER_SIZE];
 
+	stash = malloc(1);
+	stash[0] = '\0';
 	bytes_read = 1;
-	if (!arr)
-		return (NULL);
-	while ((bytes_read > 0) && (!ft_strchr(arr, '\n')))
+	while ((bytes_read > 0) && (!ft_strchr(buffer, '\n')))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read > 0)
@@ -108,12 +107,9 @@ char	*ft_splitline(char *arr, int fd)
 			stash = ft_strjoin(stash,buffer);
 			if (!stash)
 				return (NULL);
-			if (ft_strchr(arr, '\n'))
-			{
-				temp = ft_cleanline(stash);
-				arr = ft_strchr(stash, '\n');
-			}
+			if (ft_strchr(buffer, '\n'))
+				return (stash);
 		}
 	}
-	return (temp);
+	return (stash);
 }

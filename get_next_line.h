@@ -23,7 +23,8 @@
 char *get_next_line(int fd);
 int ft_strlen(const char *str, int flag);
 char *ft_cleanline(char *str);
-char *ft_splitline(char *arr, int fd);
+char *ft_getline(int fd);
 char *ft_strjoin(char *s1, char *s2);
+char	*ft_strchr(const char *str, char c);
 
 #endif

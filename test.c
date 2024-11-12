@@ -2,16 +2,17 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-int	main(void)
+int main(void)
 {
-	int fd = open("hi.txt",O_RDONLY);
-	char *arr = get_next_line(fd);
-	printf("%s",arr);
-	arr = get_next_line(fd);
-	printf("%s",arr);
-	arr = get_next_line(fd);
-	printf("%s",arr);
-	arr = get_next_line(fd);
-	printf("%s",arr);
-	free (arr);
+    int fd;
+    char *line;
+
+    fd = open("hi.txt", O_RDONLY);
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        printf("%s", line);
+        free(line);
+    }
+    close(fd);
+    return 0;
 }
