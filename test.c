@@ -6,6 +6,6 @@ int	main(void)
 {
 	int fd = open("hi.txt",O_RDONLY);
 	char *arr = get_next_line(fd);
-	printf("%s\n",arr);
+	printf("%s",arr);
 	free (arr);
 }

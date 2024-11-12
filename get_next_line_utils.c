@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	ft_strlen(const char *str, int flag)
 {
@@ -97,6 +98,7 @@ char	*ft_splitline(char *arr, int fd)
 
 	bytes_read = 1;
 	arr = (char *)malloc(BUFFER_SIZE + 1);
+	stash = (char *)malloc(BUFFER_SIZE + 1);
 	if (!arr)
 		return (NULL);
 	while ((bytes_read > 0) && (!ft_strchr(arr, '\n')))
@@ -109,8 +111,11 @@ char	*ft_splitline(char *arr, int fd)
 				return (NULL);
 			if (ft_strchr(arr, '\n'))
 			{
+		//		printf("Stashend:%s\n",stash);
 				temp = ft_cleanline(stash);
+		//		printf("Temp1: %s\n",temp); 
 				arr = ft_strchr(stash, '\n');
+		//		printf("Arr1: %s\n",arr); 
 			}
 			else {
 				free(arr);
@@ -118,5 +123,6 @@ char	*ft_splitline(char *arr, int fd)
 			}
 		}
 	}
+	//printf("TempFinal: %s\n",temp);
 	return (temp);
 }
