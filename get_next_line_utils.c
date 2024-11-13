@@ -18,6 +18,8 @@ int	ft_strlen(const char *str, int flag)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	if (!flag)
 		while (str[i])
 			i++;
@@ -64,7 +66,7 @@ char	*ft_strchr(const char *str, char c)
 	while (str[i])
 	{
 		if (str[i] == c)
-			return (&s[i]);
+			return (&s[i+1]);
 		i++;
 	}
 	return (NULL);
@@ -111,5 +113,6 @@ char	*ft_getline(int fd)
 				return (stash);
 		}
 	}
+	
 	return (stash);
 }

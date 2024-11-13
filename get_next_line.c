@@ -23,9 +23,11 @@ char	*get_next_line(int fd)
 	if (!arr)
 	{
 		temp = ft_getline(fd);
-		if (!temp)
+		if (!*temp)
 			return (free(temp),NULL);
 		arr = ft_strchr(temp,'\n');
+		if (!*arr)
+			arr = NULL;
 		stash = ft_cleanline(temp);
 		if (!stash)
 			return (NULL);
@@ -33,10 +35,10 @@ char	*get_next_line(int fd)
 	else {
 		stash = ft_cleanline(arr);
 		arr = ft_strchr(arr, '\n');
-		if (!stash || arr == "\n")
-		{
-			return (free(arr),NULL);
-		}
+		if (!*arr)
+			arr = NULL;
+		if (!stash)
+			return (NULL);
 	}
 	return (stash);
 }
