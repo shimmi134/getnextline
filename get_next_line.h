@@ -26,5 +26,6 @@ char *ft_cleanline(char *str);
 char *ft_getline(char *arr, int fd);
 char *ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(const char *str, char c);
+char	*ft_strchr2(const char *str, char c);
 
 #endif

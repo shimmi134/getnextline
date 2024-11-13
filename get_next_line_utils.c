@@ -75,6 +75,42 @@ char	*ft_strchr(const char *str, char c)
 	return (NULL);
 }
 
+char	*ft_strchr2(const char *str, char c)
+{
+	int		i;
+	int		len;
+	char	*arr;
+	char	*s;
+
+	len = 0;
+	s = (char *)str;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+		{
+			i++;
+			while (str[i])
+				len++;
+			arr = (char *)malloc(len+1);
+			if (!arr)
+				return (NULL);
+			len = 0;
+			while (str[i])
+			{
+				s[i+len] = arr[len];
+				len++;
+			}
+			arr[len] = '\0';
+			if (arr[0] == '\0')
+				return (free(arr),NULL);
+			return (arr);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
 char	*ft_cleanline(char *str)
 {
 	char	*temp;

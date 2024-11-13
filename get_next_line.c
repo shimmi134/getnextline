@@ -22,12 +22,14 @@ char	*get_next_line(int fd)
 	if (!arr)
 	{
 		arr = ft_getline(arr,fd);
+		//if (!arr)
+		//	return (free(arr),NULL);
 		stash = ft_cleanline(arr);
-		arr = ft_strchr(arr, '\n');
+		arr = ft_strchr2(arr, '\n');
 	}
 	else {
 		stash = ft_cleanline(arr);
-		arr = ft_strchr(arr, '\n');
+		arr = ft_strchr2(arr, '\n');
 		if (!stash)
 			return (NULL);
 	}
