@@ -6,7 +6,7 @@
 /*   By: shimi-be <shimi-be@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:28:16 by shimi-be          #+#    #+#             */
-/*   Updated: 2024/11/12 16:00:59 by shimi-be         ###   ########.fr       */
+/*   Updated: 2024/11/13 20:36:21 by shimi-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1[i])
+	if (s1)
 	{
-		arr[i] = s1[i];
-		i++;
+		while (s1[i])
+		{
+			arr[i] = s1[i];
+			i++;
+		}
 	}
 	while (s2[j])
 	{
@@ -92,27 +95,31 @@ char	*ft_cleanline(char *str)
 	return (temp);
 }
 
-char	*ft_getline(int fd)
+char	*ft_getline(char *arr, int fd)
 {
 	int		bytes_read;
 	char	*stash;
-	char	buffer[BUFFER_SIZE];
+	char	buffer[BUFFER_SIZE + 1];
 
-	stash = malloc(1);
-	stash[0] = '\0';
 	bytes_read = 1;
 	while ((bytes_read > 0) && (!ft_strchr(buffer, '\n')))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		buffer[bytes_read] = '\0';
 		if (bytes_read > 0)
 		{
-			stash = ft_strjoin(stash,buffer);
-			if (!stash)
-				return (NULL);
-			if (ft_strchr(buffer, '\n'))
-				return (stash);
+			stash = ft_strjoin(arr,buffer);
+			free(arr);
+			arr = stash;
 		}
+		else if (bytes_read == 0)
+		{
+			if(!arr)
+				return(free(arr),NULL);
+			return (arr);
+		}
+		else if (bytes_read < 0)
+			return (NULL);	
 	}
-	
-	return (stash);
+	return (arr);
 }
