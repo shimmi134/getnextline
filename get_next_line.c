@@ -6,7 +6,7 @@
 /*   By: shimi-be <shimi-be@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:12:18 by shimi-be          #+#    #+#             */
-/*   Updated: 2024/11/12 19:19:20 by shimi-be         ###   ########.fr       */
+/*   Updated: 2024/11/13 18:40:59 by shimi-be         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,18 @@ char	*get_next_line(int fd)
 {
 	static char	*arr = NULL;
 	char		*stash;
-	char		*temp;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	if (!arr)
 	{
-		temp = ft_getline(fd);
-		if (!*temp)
-			return (free(temp),NULL);
-		arr = ft_strchr(temp,'\n');
-		if (!*arr)
-			arr = NULL;
-		stash = ft_cleanline(temp);
-		if (!stash)
-			return (NULL);
+		arr = ft_getline(arr,fd);
+		stash = ft_cleanline(arr);
+		arr = ft_strchr(arr, '\n');
 	}
 	else {
 		stash = ft_cleanline(arr);
 		arr = ft_strchr(arr, '\n');
-		if (!*arr)
-			arr = NULL;
 		if (!stash)
 			return (NULL);
 	}
